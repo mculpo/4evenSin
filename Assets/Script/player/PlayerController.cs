@@ -19,6 +19,18 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float dashDistance = 5f;
     [SerializeField] private float dashTime = 1f;
 
+    [Header("Stats")]
+    public AtributeData baseAtributes;
+    public int baseHealth;
+    public float baseDefense;
+    public float baseStrength;
+    public int health;
+    public float defense;
+    public float strength;
+    public float regenTime = 3f;
+    public int regeneratedHealthPoints;
+    private float regenerationTime;
+
     private float dashTimeLeft;
     private Vector3 dashDirection;
 
@@ -33,6 +45,15 @@ public class PlayerController : MonoBehaviour
         animationController = GetComponent<AnimationController>();
         characterController = GetComponent<CharacterController>();
         comboController = GetComponent<ComboController>();
+
+        //Apply player stats
+        baseHealth = baseAtributes.health;
+        baseDefense = baseAtributes.defense;
+        baseStrength = baseAtributes.strength;
+        health = baseHealth;
+        strength = baseStrength;
+        defense = baseDefense;
+        regenerationTime = regenTime;
     }
 
     private void OnEnable()
@@ -98,6 +119,7 @@ public class PlayerController : MonoBehaviour
         characterController.Move(totalMovement * Time.deltaTime);
 
         CheckAnimation();
+        RegenerateHeath();
     }
 
     private void CheckAnimation()
@@ -194,6 +216,85 @@ public class PlayerController : MonoBehaviour
             : transform.forward.normalized;
 
             Debug.Log($"Dash Direction: {dashDirection}");
+        }
+    }
+
+    /// <summary>
+    /// Updates the base health and player current health
+    /// </summary>
+    /// <param name="stat"></param>
+    public void UpdateBaseHealth(int stat)
+    {
+        baseHealth = Mathf.Clamp(stat, baseAtributes.minHealth, baseAtributes.maxHealth);
+        health = baseHealth;
+    }
+
+    /// <summary>
+    /// Updates the base defense and player current defense
+    /// </summary>
+    /// <param name="stat"></param>
+    public void UpdateBaseDefense(float stat)
+    {
+        baseDefense = Mathf.Clamp(stat, baseAtributes.minDefense, baseAtributes.maxDefense);
+        defense = baseDefense;
+    }
+
+    /// <summary>
+    /// Updates the base strength and current strength
+    /// </summary>
+    /// <param name="stat"></param>
+    public void UpdateBaseStrength(float stat)
+    {
+        baseStrength = Mathf.Clamp(stat, baseAtributes.minDefense, baseAtributes.maxDefense);
+        strength = baseDefense;
+    }
+
+
+    /// <summary>
+    /// Updates the health
+    /// </summary>
+    /// <param name="stat"></param>
+    public void UpdateHealth(int stat)
+    {
+        health = Mathf.Clamp(stat, baseAtributes.minHealth, baseAtributes.maxHealth);
+    }
+
+    /// <summary>
+    /// Updates the defense
+    /// </summary>
+    /// <param name="stat"></param>
+    public void UpdateDefense(float stat)
+    {
+        defense = Mathf.Clamp(stat, baseAtributes.minDefense, baseAtributes.maxDefense);
+    }
+
+    /// <summary>
+    /// Updates the strength
+    /// </summary>
+    /// <param name="stat"></param>
+    public void UpdateStrength(float stat)
+    {
+        strength = Mathf.Clamp(stat, baseAtributes.minStrength, baseAtributes.maxStrength);
+    }
+
+    /// <summary>
+    /// Regenerate health
+    /// </summary>
+    private void RegenerateHeath()
+    {
+        //Only regenerate if health is low
+        if (health < baseHealth)
+        {
+            if (regenerationTime <= 0)
+            {
+                regenerationTime = regenTime;
+                //Clamp it incase regenerated health points change
+                health += Mathf.Clamp(regeneratedHealthPoints, 0, baseHealth);
+            }
+            else
+            {
+                regenerationTime -= Time.deltaTime;
+            }
         }
     }
 }
