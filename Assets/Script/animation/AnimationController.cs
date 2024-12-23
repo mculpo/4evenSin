@@ -5,7 +5,7 @@ using UnityEngine;
 public class AnimationController : MonoBehaviour
 {
     [SerializeField] private Animator animator;
-    private Dictionary<string, int> animationHashes;
+    private Dictionary<string, int> animationHashes = new Dictionary<string, int>();
 
     [Tooltip("List of available animation names")]
     public List<string> animationNames;

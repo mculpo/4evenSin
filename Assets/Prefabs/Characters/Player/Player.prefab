@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7847559033293755029}
   - component: {fileID: 716578237750137549}
   - component: {fileID: 537820988105262197}
+  - component: {fileID: 5615319245061867750}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -99,6 +100,29 @@ MonoBehaviour:
   - attack2
   - attack3
   - attack4
+--- !u!114 &5615319245061867750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7652565953687068314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 091bcb0ec1e795841afa8051d5f9ce84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 5
+  gravity: -9.81
+  jumpHeight: 2
+  dashDistance: 3
+  dashTime: 0.5
+  characterController: {fileID: 7847559033293755029}
+  animationController: {fileID: 537820988105262197}
+  comboController: {fileID: 716578237750137549}
+  cameraTranform: {fileID: 0}
+  velocity: {x: 0, y: 0, z: 0}
+  lastMoveDirection: {x: 0, y: 0, z: 0}
 --- !u!1001 &5143292967948437475
 PrefabInstance:
   m_ObjectHideFlags: 0
