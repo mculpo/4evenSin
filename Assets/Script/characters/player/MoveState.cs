@@ -14,12 +14,12 @@ public class MoveState :IState
     public void Enter()
     {
         Debug.Log("${MoveState} -  Enter");
-        baseController.animationController.PlayAnimation("run", 0.2f);
+        baseController.animationController.PlayAnimation("run", 0.0f);
     }
 
     public void Execute()
     {
-        baseController.animationController.PlayAnimation("run", 0.2f);
+        baseController.animationController.PlayAnimation("run", 0.0f);
         Debug.Log("${MoveState} -  Execute");
         var inputAxis = InputManager.instance.directionalLeftInput;
         Vector3 moveDirection = baseController.cameraTranform.TransformDirection(new Vector3(inputAxis.x, 0, inputAxis.y));
