@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class EnemyAttackState : IState
 {
-    private readonly EnemyController enemyController;
+    private readonly BaseController enemyController;
 
     private float attackCooldown = 0.5f;
     private float lastAttackTime = 0f;
 
-    public EnemyAttackState(EnemyController controller) { enemyController = controller; }
+    public EnemyAttackState(BaseController controller) { enemyController = controller; }
     public void Enter()
     {
         Debug.Log("${EnemyAttackState} -  Enter");

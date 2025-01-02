@@ -4,7 +4,37 @@ using UnityEngine;
 
 public class InputManager : Singleton<InputManager>
 {
-    public enum InputAction { Move, ButtonA, ButtonB, ButtonX, ButtonY }
+    public enum InputType
+    {
+        KeyboardMouse,
+        Gamepad
+    }
+    public enum InputAction
+    {
+        Move,               // Movement (using keyboard or joystick)
+        ButtonA,            // A Button (Xbox)
+        ButtonB,            // B Button (Xbox)
+        ButtonX,            // X Button (Xbox)
+        ButtonY,            // Y Button (Xbox)
+        LeftShoulder,       // LB Button (Xbox)
+        RightShoulder,      // RB Button (Xbox)
+        LeftTrigger,        // LT Button (Xbox)
+        RightTrigger,       // RT Button (Xbox)
+        Back,               // Select Button (Xbox)
+        Start,              // Start Button (Xbox)
+        DPadUp,             // D-Pad Up (Xbox)
+        DPadDown,           // D-Pad Down (Xbox)
+        DPadLeft,           // D-Pad Left (Xbox)
+        DPadRight,          // D-Pad Right (Xbox)
+        LeftStickUp,        // Left Stick Y-axis movement (Xbox)
+        LeftStickDown,      // Left Stick Y-axis movement (Xbox)
+        LeftStickLeft,      // Left Stick X-axis movement (Xbox)
+        LeftStickRight,     // Left Stick X-axis movement (Xbox)
+        RightStickUp,       // Right Stick Y-axis movement (Xbox)
+        RightStickDown,     // Right Stick Y-axis movement (Xbox)
+        RightStickLeft,     // Right Stick X-axis movement (Xbox)
+        RightStickRight     // Right Stick X-axis movement (Xbox)
+    }
 
     private Dictionary<KeyCode, InputAction> inputMap;
 
@@ -15,20 +45,37 @@ public class InputManager : Singleton<InputManager>
 
     public event Action<InputAction> OnActionTriggeredDown;
     public event Action<InputAction> OnActionTriggeredUp;
+    public event Action<InputType> OnChanceInputDevice;
+
+    public InputType CurrentInputType { get; private set; }
 
     private void Awake()
     {
         Initialize(this);
         InitializeInputMaps();
+        CurrentInputType = InputType.KeyboardMouse;
     }
 
     void Update()
     {
+        DetectInputDevice();
         actionQueueDown.Clear();
         actionQueueUp.Clear();
         ProcessKeyInput();
         ProcessAxisInput();
         TriggerActions();
+    }
+
+    private void DetectInputDevice()
+    {
+        if (IsGamepadConnected())
+        {
+            SetInputType(InputType.Gamepad);
+        }
+        else
+        {
+            SetInputType(InputType.KeyboardMouse);
+        }
     }
 
     private void InitializeInputMaps()
@@ -50,12 +97,45 @@ public class InputManager : Singleton<InputManager>
          */
         inputMap = new Dictionary<KeyCode, InputAction>
         {
+            // Xbox Joystick Buttons
+            { KeyCode.Joystick1Button0, InputAction.ButtonA }, // A on Xbox
+            { KeyCode.Joystick1Button1, InputAction.ButtonB }, // B on Xbox
+            { KeyCode.Joystick1Button2, InputAction.ButtonX }, // X on Xbox
+            { KeyCode.Joystick1Button3, InputAction.ButtonY }, // Y on Xbox
+
+            // Xbox Shoulder Buttons
+            { KeyCode.Joystick1Button4, InputAction.LeftShoulder }, // LB on Xbox
+            { KeyCode.Joystick1Button5, InputAction.RightShoulder }, // RB on Xbox
+
+            // Xbox Trigger Buttons
+            { KeyCode.Joystick1Button6, InputAction.LeftTrigger }, // LT on Xbox
+            { KeyCode.Joystick1Button7, InputAction.RightTrigger }, // RT on Xbox
+
+            // Xbox Select and Start Buttons
+            { KeyCode.Joystick1Button8, InputAction.Back }, // Select on Xbox
+            { KeyCode.Joystick1Button9, InputAction.Start }, // Start on Xbox
+
+            // Xbox D-Pad Buttons
+            { KeyCode.Joystick1Button10, InputAction.DPadUp }, // D-Pad Up on Xbox
+            { KeyCode.Joystick1Button11, InputAction.DPadDown }, // D-Pad Down on Xbox
+            { KeyCode.Joystick1Button12, InputAction.DPadLeft }, // D-Pad Left on Xbox
+            { KeyCode.Joystick1Button13, InputAction.DPadRight }, // D-Pad Right on Xbox
+
+            // Keyboard Buttons for actions
             { KeyCode.Space,            InputAction.ButtonA },
-            { KeyCode.Joystick1Button0, InputAction.ButtonA },
             { KeyCode.LeftShift,        InputAction.ButtonB },
-            { KeyCode.Joystick1Button1, InputAction.ButtonB },
-            { KeyCode.Joystick1Button2, InputAction.ButtonX },
             { KeyCode.Mouse0,           InputAction.ButtonX },
+            { KeyCode.F,                InputAction.ButtonY },
+
+            // Movement with keyboard
+            { KeyCode.W,                InputAction.Move },
+            { KeyCode.A,                InputAction.Move },
+            { KeyCode.S,                InputAction.Move },
+            { KeyCode.D,                InputAction.Move },
+            { KeyCode.UpArrow,          InputAction.Move },
+            { KeyCode.LeftArrow,        InputAction.Move },
+            { KeyCode.DownArrow,        InputAction.Move },
+            { KeyCode.RightArrow,       InputAction.Move },
         };
     }
 
@@ -98,6 +178,20 @@ public class InputManager : Singleton<InputManager>
         foreach (var action in actionQueueUp)
         {
             OnActionTriggeredUp?.Invoke(action);
+        }
+    }
+    private bool IsGamepadConnected()
+    {
+        var joystickNames = Input.GetJoystickNames();
+        return joystickNames.Length > 0 && !string.IsNullOrEmpty(joystickNames[0]);
+    }
+    private void SetInputType(InputType newInputType)
+    {
+        if (CurrentInputType != newInputType)
+        {
+            CurrentInputType = newInputType;
+            OnChanceInputDevice?.Invoke(CurrentInputType);
+            Debug.Log($"Tipo de entrada alterado para: {CurrentInputType}");
         }
     }
 }

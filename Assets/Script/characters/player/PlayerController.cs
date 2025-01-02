@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using UnityEngine;
 
 public class PlayerController : BaseController
@@ -32,6 +33,8 @@ public class PlayerController : BaseController
 
     protected override void Update()
     {
+        if (GameManager.instance.CurrentGameState != GameState.Playing) return;
+
         if (comboController != null && comboController.IsComboExecuting()) return;
 
         base.Update();
@@ -63,22 +66,25 @@ public class PlayerController : BaseController
 
     private void HandleActionTriggeredDown(InputManager.InputAction action)
     {
-        switch (action)
+        if (GameManager.instance.HasPlayerState(PlayerState.Attack))
         {
-            case InputManager.InputAction.ButtonB:
-                stateMachine.ChangeState(dashState);
-                break;
+            switch (action)
+            {
+                case InputManager.InputAction.ButtonB:
+                    stateMachine.ChangeState(dashState);
+                    break;
 
-            case InputManager.InputAction.ButtonA:
-                stateMachine.ChangeState(jumpState);
-                break;
+                case InputManager.InputAction.ButtonA:
+                    stateMachine.ChangeState(jumpState);
+                    break;
 
-            case InputManager.InputAction.ButtonX:
-                comboController.TryExecuteLightCombo();
-                break;
+                case InputManager.InputAction.ButtonX:
+                    comboController.TryExecuteLightCombo();
+                    break;
 
-            default:
-                break;
+                default:
+                    break;
+            }
         }
     }
 }

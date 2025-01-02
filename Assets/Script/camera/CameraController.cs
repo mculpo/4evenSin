@@ -45,7 +45,9 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
-        if (Application.isPlaying && target != null)
+        if (Application.isPlaying && target != null && 
+            GameManager.instance.CurrentGameState == GameState.Playing &&
+            GameManager.instance.HasPlayerState(PlayerState.Rotation))
         {
             HandleCameraInput();
             UpdateCameraPositionAndRotation();
@@ -71,27 +73,29 @@ public class CameraController : MonoBehaviour
 
     private void UpdateCameraPositionAndRotation()
     {
-        distance = Mathf.Clamp(distance, minDistance, maxDistance); 
-
-        offset = new Vector3(offsetX, height + offsetY, -distance);
-
-        Quaternion targetRotation = Quaternion.Euler(pitch, yaw, 0);
-
-        Vector3 targetOffset = targetRotation * offset;
-
-        RaycastHit hit;
-        if (Physics.Raycast(target.position, targetOffset.normalized, out hit, raycastDistance, obstructionLayer))
         {
-            
-            targetOffset = targetOffset.normalized * Mathf.Clamp(hit.distance, minDistance, maxDistance);
-        }
-       
-        Vector3 targetPosition = target.position + targetOffset;
-        
-        currentRotation = Quaternion.Slerp(currentRotation, targetRotation, Time.deltaTime * rotationSpeed);
-        currentPosition = Vector3.Lerp(currentPosition, targetPosition, Time.deltaTime * positionSpeed);
+            distance = Mathf.Clamp(distance, minDistance, maxDistance);
 
-        transform.position = currentPosition;
-        transform.rotation = currentRotation;
+            offset = new Vector3(offsetX, height + offsetY, -distance);
+
+            Quaternion targetRotation = Quaternion.Euler(pitch, yaw, 0);
+
+            Vector3 targetOffset = targetRotation * offset;
+
+            RaycastHit hit;
+            if (Physics.Raycast(target.position, targetOffset.normalized, out hit, raycastDistance, obstructionLayer))
+            {
+
+                targetOffset = targetOffset.normalized * Mathf.Clamp(hit.distance, minDistance, maxDistance);
+            }
+
+            Vector3 targetPosition = target.position + targetOffset;
+
+            currentRotation = Quaternion.Slerp(currentRotation, targetRotation, Time.deltaTime * rotationSpeed);
+            currentPosition = Vector3.Lerp(currentPosition, targetPosition, Time.deltaTime * positionSpeed);
+
+            transform.position = currentPosition;
+            transform.rotation = currentRotation;
+        }
     }
 }

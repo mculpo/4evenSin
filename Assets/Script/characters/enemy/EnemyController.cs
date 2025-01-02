@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class EnemyController : BaseController
 {
+   
     private IState chaseState;
     private IState attackState;
 
-    public Transform target;
+    
     public float attackRange = 1.5f;
-    public float chaseSpeed = 2f;
 
     private void OnEnable()
     {
@@ -30,8 +30,11 @@ public class EnemyController : BaseController
 
     protected override void Update()
     {
-        CheckState();
-        base.Update();
+        if (GameManager.instance.CurrentGameState == GameState.Playing)
+        {
+            base.Update();
+            CheckState();
+        }
     }
 
     private void OnComboStepExecuted(string obj)

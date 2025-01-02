@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class IdleState : IState
 {
-    public readonly PlayerController baseController;
-    public IdleState (PlayerController controller) {  baseController = controller; }
+    public readonly BaseController baseController;
+    public IdleState (BaseController controller) {  baseController = controller; }
     public void Enter()
     {
         baseController.animationController.PlayAnimation("idle", 0f);

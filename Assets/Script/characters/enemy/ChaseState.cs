@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ChaseState : IState
 {
-    public readonly EnemyController enemyController;
-    public ChaseState(EnemyController controller) { enemyController = controller; }
+    public readonly BaseController enemyController;
+    public ChaseState(BaseController controller) { enemyController = controller; }
     public void Enter()
     {
         Debug.Log("${ChaseState} -  Enter");
@@ -28,7 +28,7 @@ public class ChaseState : IState
             Time.deltaTime * 5f // Adjust rotation speed as needed
         );
 
-        enemyController.characterController.Move(direction * enemyController.chaseSpeed * Time.deltaTime);
+        enemyController.characterController.Move(direction * enemyController.moveSpeed * Time.deltaTime);
 
         enemyController.ApplyGravity();
     }

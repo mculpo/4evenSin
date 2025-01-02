@@ -5,7 +5,10 @@ public abstract class BaseController : MonoBehaviour
 {
     public StateMachine stateMachine;
 
-    [Header("Configurações Gerais")]
+    [Header("Target Ref")]
+    public Transform target;
+
+    [Header("Base Controller")]
     [SerializeField] public float moveSpeed = 5f;
     [SerializeField] public float gravity = -9.81f;
     [SerializeField] public float jumpHeight = 2f;

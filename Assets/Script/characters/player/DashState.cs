@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class DashState : IState
 {
-    public readonly PlayerController baseController;
+    public readonly BaseController baseController;
 
     private IState state;
     private float dashTimeLeft;
     private Vector3 dashDirection;
-    public DashState(PlayerController controller, IState state) {
+    public DashState(BaseController controller, IState state) {
         baseController = controller; 
         this.state = state;
     }

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class MoveState :IState
 {
-    private readonly PlayerController baseController;
+    private readonly BaseController baseController;
 
-    public MoveState (PlayerController controller)
+    public MoveState (BaseController controller)
     {
         this.baseController = controller;
     }

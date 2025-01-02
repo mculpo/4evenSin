@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class JumpState : IState
 {
-    public  readonly PlayerController baseController;
+    public  readonly BaseController baseController;
 
     private IState state;
-    public JumpState(PlayerController controller, IState state)
+    public JumpState(BaseController controller, IState state)
     {
         baseController = controller;
         this.state = state;

@@ -160,7 +160,7 @@ Transform:
   m_GameObject: {fileID: 668289217}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.9888626, y: 2.180194, z: 1.7129955}
+  m_LocalPosition: {x: 0.9888626, y: 3.29, z: 1.7129955}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -283,18 +283,18 @@ PrefabInstance:
     - target: {fileID: 6193902044963816916, guid: 312e04411190c9047837b5c5f9715ccc, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 6901eef2367825c46921fd6dffb65380, type: 2}
+      objectReference: {fileID: 9100000, guid: b8e0aea239fee6046891a8092e1a5560, type: 2}
     - target: {fileID: 6312045526285665612, guid: 312e04411190c9047837b5c5f9715ccc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.369843
+      value: -4.91
       objectReference: {fileID: 0}
     - target: {fileID: 6312045526285665612, guid: 312e04411190c9047837b5c5f9715ccc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.586
+      value: 1.48
       objectReference: {fileID: 0}
     - target: {fileID: 6312045526285665612, guid: 312e04411190c9047837b5c5f9715ccc, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 11.592292
+      value: 3.93
       objectReference: {fileID: 0}
     - target: {fileID: 6312045526285665612, guid: 312e04411190c9047837b5c5f9715ccc, type: 3}
       propertyPath: m_LocalRotation.w
@@ -426,7 +426,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.46, y: 2, z: -10.55}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -445,14 +445,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1542423674}
-  distance: 3.25
-  height: 0.97
-  offsetX: 0.62
-  offsetY: 0.81
+  distance: 3.45
+  height: 1.49
+  offsetX: 0.46
+  offsetY: 0.47
   sensitivity: 2
   rotationSpeed: 15
-  minDistance: 0.77
-  maxDistance: 41.3
+  minDistance: 1
+  maxDistance: 20
   obstructionLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -597,7 +597,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7028520180731600937, guid: 2fed407fea059a44aa38b730ac1a86c5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.14
+      value: 1.42
       objectReference: {fileID: 0}
     - target: {fileID: 7028520180731600937, guid: 2fed407fea059a44aa38b730ac1a86c5, type: 3}
       propertyPath: m_LocalPosition.z
