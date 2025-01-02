@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : BaseController
+public class PlayerController : BaseController, IStats
 {
     private IState moveState;
     private IState idleState;
@@ -80,5 +80,69 @@ public class PlayerController : BaseController
             default:
                 break;
         }
+    }
+
+    /*
+     * -------------------------------------------------
+     * STATS
+     * -------------------------------------------------
+    */
+
+    public void RevertStat(int stat, int baseStat)
+    {
+        if (stat > baseStat)
+        {
+            stat = baseStat;
+        }
+    }
+
+    public void RevertStat(float stat, float baseStat)
+    {
+        if (stat > baseStat)
+        {
+            stat = baseStat;
+        }
+    }
+
+    public void ModifyStat(int stat, int baseStat, int maxStat, int mod, float seconds)
+    {
+        var nStat = Mathf.Clamp(stat, 1, maxStat);
+
+        if(nStat != stat)
+        {
+            stat = nStat;
+            StartCoroutine(WhileUnderStatMod(stat, baseStat, seconds));
+        }
+    }
+
+    public void ModifyStat(float stat, float baseStat, float maxStat, float mod, float seconds)
+    {
+        var nStat = Mathf.Clamp(stat, 1, maxStat);
+
+        if (nStat != stat)
+        {
+            stat = nStat;
+            StartCoroutine(WhileUnderStatMod(stat, baseStat, seconds));
+        }
+    }
+
+    public void RegenerateStat(int stat, int baseStat, float perSec, float baseSec)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void RegenerateStat(float stat, float baseStat, float perSec, float baseSec)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public IEnumerator WhileUnderStatMod(int stat, int baseStat, float seconds)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public IEnumerator WhileUnderStatMod(float stat, float baseStat, float seconds)
+    {
+        throw new System.NotImplementedException();
     }
 }
