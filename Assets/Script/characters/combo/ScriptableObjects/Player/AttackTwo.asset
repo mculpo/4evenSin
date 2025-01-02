@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be42a0fda25530e4ea03160fbf91b825, type: 3}
+  m_Name: AttackTwo
+  m_EditorClassIdentifier: 
+  comboName: AttackTwo
+  animationClips:
+  - {fileID: 7400000, guid: a304d71dc8eb8ca46944e9f839420fb0, type: 2}
+  - {fileID: 7400000, guid: e1602837983ec2e45a1060f11b2bbac8, type: 2}
+  - {fileID: 7400000, guid: 86433005756babf4d89e6d2327ff5dad, type: 2}

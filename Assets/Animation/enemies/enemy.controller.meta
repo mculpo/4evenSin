@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Animation/enemies/enemy.controller.meta
+guid: b8e0aea239fee6046891a8092e1a5560
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+========
+guid: a8697f843bd0b194f844f555d2d9a5ec
+folderAsset: yes
+DefaultImporter:
+  externalObjects: {}
+>>>>>>>> f206eb2 (some props and folder for props):Assets/Mesh&Models.meta
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
