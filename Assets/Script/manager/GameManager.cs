@@ -23,12 +23,18 @@ public class GameManager : Singleton<GameManager>
     public GameState CurrentGameState { get; private set; }
     public PlayerState CurrentPlayerState { get; private set; }
 
-    [SerializeField] private GameState gameState;
-
     private void Awake()
     {
-        Initialize(this);
-        CurrentGameState = gameState;
+        if (instance == null)
+        {
+            Initialize(this);
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        CurrentGameState = GameState.Playing;
         CurrentPlayerState = PlayerState.Move | PlayerState.Rotation;
     }
 

@@ -14,4 +14,11 @@ public class UIBossInfoHandle : MonoBehaviour
         text.text = bossInfoScreenData.infoText;
         image.sprite = bossInfoScreenData.imageBoss;
     }
+
+    public void BossLoadScene()
+    {
+        LoadSceneManager.instance.LoadScene("BattleScene");
+        GameManager.instance.SetGameState(GameState.Playing);
+        GameManager.instance.SetPlayerState(PlayerState.All);
+    }
 }

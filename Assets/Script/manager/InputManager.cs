@@ -51,7 +51,15 @@ public class InputManager : Singleton<InputManager>
 
     private void Awake()
     {
-        Initialize(this);
+        if (instance == null)
+        {
+            Initialize(this);
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         InitializeInputMaps();
         CurrentInputType = InputType.KeyboardMouse;
     }
@@ -126,6 +134,7 @@ public class InputManager : Singleton<InputManager>
             { KeyCode.LeftShift,        InputAction.ButtonB },
             { KeyCode.Mouse0,           InputAction.ButtonX },
             { KeyCode.F,                InputAction.ButtonY },
+            { KeyCode.Escape,           InputAction.Start },
 
             // Movement with keyboard
             { KeyCode.W,                InputAction.Move },
